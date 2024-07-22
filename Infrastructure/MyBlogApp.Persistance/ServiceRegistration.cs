@@ -1,6 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using MyBlogApp.Application.Abstractions.Services;
+using MyBlogApp.Application.Abstractions.UnitOfWork;
+using MyBlogApp.Application.Repositories.Author;
+using MyBlogApp.Application.Repositories.Blog;
+using MyBlogApp.Application.Repositories.Post;
 using MyBlogApp.Persistance.Contexts;
+using MyBlogApp.Persistance.Repositories.Author;
+using MyBlogApp.Persistance.Repositories.Blog;
+using MyBlogApp.Persistance.Repositories.Post;
+using MyBlogApp.Persistance.Services.Author;
 
 namespace MyBlogApp.Persistance
 {
@@ -9,6 +18,14 @@ namespace MyBlogApp.Persistance
         public static void AddPersistanceServices(this IServiceCollection services)
         {
             services.AddDbContext<MyBlogAppDbContext>(opts => opts.UseSqlServer(Configuration.DbConnectionString));
+
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
+            services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<IBlogRepository, BlogRepository>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddScoped<IAuthorService, AuthorService>();
         }
     }
 }

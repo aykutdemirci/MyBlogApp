@@ -1,0 +1,10 @@
+﻿@model List<MyBlogApp.UI.Models.ListAuthorViewModel>
+
+<h1>Authors</h1>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>@item.Name</li>
+    }
+</ul>
