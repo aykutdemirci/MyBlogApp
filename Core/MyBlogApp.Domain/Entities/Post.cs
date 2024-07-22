@@ -3,7 +3,7 @@ using MyBlogApp.Domain.Entities.Common;
 
 namespace MyBlogApp.Domain.Entities
 {
-    public class Post : BaseEntitiy
+    public sealed class Post : BaseEntitiy
     {
         public string Title { get; set; }
 

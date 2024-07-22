@@ -2,7 +2,7 @@
 
 namespace MyBlogApp.Domain.Entities
 {
-    public class Author : BaseEntitiy
+    public sealed class Author : BaseEntitiy
     {
         public string Name { get; set; }
 
