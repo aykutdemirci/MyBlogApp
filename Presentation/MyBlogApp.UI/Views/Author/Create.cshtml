@@ -1,0 +1,17 @@
+﻿@{ 
+    Layout = "_Layout";
+}
+
+<form action="/Author/Create" id="create_author_form">
+    <label for="name">Yazar Adı: </label>
+    <input id="name" type="text"/>
+    <br />
+    <label for="image_url">Resim: </label>
+    <input id="image_url" type="file" />
+
+    <button id="create_author" type="button">Gönder</button>
+</form>
+
+@section scripts{ 
+    <script src="~/js/author.js"></script>
+}

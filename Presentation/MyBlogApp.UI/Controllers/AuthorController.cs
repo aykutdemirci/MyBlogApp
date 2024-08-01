@@ -16,21 +16,6 @@ namespace MyBlogApp.UI.Controllers
 
         public IActionResult Index()
         {
-            bool added = Task.Run(async () => await _authorService.CreateAsync(new CreateAuthorDto
-            {
-                Name = "John Doe",
-            })).GetAwaiter().GetResult();
-
-            added = Task.Run(async () => await _authorService.CreateAsync(new CreateAuthorDto
-            {
-                Name = "Mehmet Tığlıoğlu",
-            })).GetAwaiter().GetResult();
-
-            added = Task.Run(async () => await _authorService.CreateAsync(new CreateAuthorDto
-            {
-                Name = "Cevdet Bursalı"
-            })).GetAwaiter().GetResult();
-
             var data = Task.Run(async () => await _authorService.GetAllAsync()).GetAwaiter().GetResult();
 
             List<ListAuthorViewModel> authors = data.Select(q => new ListAuthorViewModel
@@ -41,38 +26,22 @@ namespace MyBlogApp.UI.Controllers
             return View(authors);
         }
 
-        //[HttpGet("Index")]
-        //public async Task<IActionResult> Index()
-        //{
-        //    await _authorService.CreateAsync(new CreateAuthorDto
-        //    {
-        //        Name = "John Doe",
-        //    });
-
-        //    await _authorService.CreateAsync(new CreateAuthorDto
-        //    {
-        //        Name = "Mehmet Tığlıoğlu",
-        //    });
-
-        //    await _authorService.CreateAsync(new CreateAuthorDto
-        //    {
-        //        Name = "Cevdet Bursalı"
-        //    });
-
-        //    var data = await _authorService.GetAllAsync();
-
-        //    List<ListAuthorViewModel> authors = data.Select(q => new ListAuthorViewModel
-        //    {
-        //        Name = q.Name,
-        //    }).ToList();
-
-        //    return View(authors);
-        //}
-
-        [HttpPost("Create")]
-        public async Task<IActionResult> Create(CreateAuthorDto dto)
+        [HttpGet]
+        public IActionResult Create()
         {
-            var result = await _authorService.CreateAsync(dto);
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(CreateAuthorVM vm)
+        {
+            var dto = new CreateAuthorDto
+            {
+                Name = vm.Name,
+                ImageURL = vm.ImageURL,
+            };
+
+            var result = Task.Run(async () => await _authorService.CreateAsync(dto)).GetAwaiter().GetResult();
 
             if (result) return new StatusCodeResult(201);
 
