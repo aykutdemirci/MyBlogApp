@@ -1,10 +1,12 @@
 using MyBlogApp.Persistance;
+using MyBlogApp.Infrastructure;
 
 var cs = Configuration.DbConnectionString;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddCache(MyBlogApp.Infrastructure.Enums.CachingType.InMemory);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddPersistanceServices();

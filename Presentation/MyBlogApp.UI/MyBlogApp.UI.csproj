@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\MyBlogApp.Infrastructure\MyBlogApp.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Infrastructure\MyBlogApp.Persistance\MyBlogApp.Persistance.csproj" />
   </ItemGroup>
 
