@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MyBlogApp.Application.Abstractions.Caching;
+using MyBlogApp.Infrastructure.Configurations;
 using MyBlogApp.Infrastructure.Enums;
 using MyBlogApp.Infrastructure.Services.Caching;
 
@@ -21,6 +22,11 @@ namespace MyBlogApp.Infrastructure
                     serviceCollection.AddScoped<ICacheService, InMemoryCacheService>();
                     break;
                 case CachingType.Distributed:
+                    serviceCollection.AddStackExchangeRedisCache(opts =>
+                    {
+                        opts.Configuration = RedisConfig.ConnectionString;
+                    });
+                    serviceCollection.AddScoped<ICacheService, DistributedCacheService>();
                     break;
             }
         }

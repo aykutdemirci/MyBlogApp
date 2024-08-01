@@ -6,7 +6,7 @@ var cs = Configuration.DbConnectionString;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddCache(MyBlogApp.Infrastructure.Enums.CachingType.InMemory);
+builder.Services.AddCache(MyBlogApp.Infrastructure.Enums.CachingType.Distributed);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddPersistanceServices();
