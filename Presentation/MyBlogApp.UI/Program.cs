@@ -1,17 +1,31 @@
 using MyBlogApp.Persistance;
 using MyBlogApp.Infrastructure;
-
-var cs = Configuration.DbConnectionString;
+using Serilog;
+using Serilog.Sinks.MSSqlServer;
+using MyBlogApp.UI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddCache(MyBlogApp.Infrastructure.Enums.CachingType.Distributed);
+builder.Services.AddCache(MyBlogApp.Infrastructure.Enums.CachingType.InMemory);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddPersistanceServices();
 
+var loggerConf = new LoggerConfiguration()
+    .WriteTo.File("logs/log.txt")
+    .WriteTo.Console()
+    .WriteTo.MSSqlServer(Configuration.DbConnectionString, sinkOptions: new MSSqlServerSinkOptions
+    {
+        AutoCreateSqlTable = true,
+        TableName = "logs"
+    }).CreateLogger();
+
+builder.Host.UseSerilog(loggerConf);
+
 var app = builder.Build();
+
+app.AddExceptionHandler(app.Services.GetRequiredService<ILogger<Program>>());
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
