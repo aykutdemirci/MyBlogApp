@@ -20,9 +20,17 @@ namespace MyBlogApp.Persistance
             }
         }
 
-        public static string GetConnectionString()
+        public static string GetConnectionString(string environmentName)
         {
-            return DbConnectionString;
+            var configurationManager = new ConfigurationManager();
+
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "../../Presentation/MyBlogApp.UI");
+
+            configurationManager.SetBasePath(path);
+
+            configurationManager.AddJsonFile($"appsettings.{environmentName}.json");
+
+            return configurationManager.GetConnectionString("MyBlogAppDbConnectionString");
         }
     }
 }

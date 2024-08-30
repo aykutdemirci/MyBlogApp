@@ -1,11 +1,17 @@
-﻿@model List<MyBlogApp.UI.Models.ListAuthorViewModel>
+﻿@model List<MyBlogApp.Application.ViewModels.ListAuthorViewModel>
 
 <h1>Authors</h1>
 
 <ul>
     @foreach (var item in Model)
     {
-        <li>@item.Name</li>
+        <li>
+            @item.Name
+            @if (!string.IsNullOrEmpty(item.ImageURL))
+            {
+                <img src="../../@item.ImageURL" />
+            }
+        </li>
     }
 </ul>
 

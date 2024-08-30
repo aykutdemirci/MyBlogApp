@@ -14,5 +14,13 @@ namespace MyBlogApp.Infrastructure.Configurations
                 return cfgManager.GetConnectionString("Redis");
             }
         }
+
+        public static string GetConnectionString(string environmentName)
+        {
+            var cfgManager = new ConfigurationManager();
+            cfgManager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../../Presentation/MyBlogApp.UI"));
+            cfgManager.AddJsonFile($"appsettings.{environmentName}.json");
+            return cfgManager.GetConnectionString("Redis");
+        }
     }
 }

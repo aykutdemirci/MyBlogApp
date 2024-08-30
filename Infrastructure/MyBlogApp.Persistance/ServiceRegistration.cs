@@ -15,9 +15,9 @@ namespace MyBlogApp.Persistance
 {
     public static class ServiceRegistration
     {
-        public static void AddPersistanceServices(this IServiceCollection services)
+        public static void AddPersistanceServices(this IServiceCollection services, string environmentName)
         {
-            services.AddDbContext<MyBlogAppDbContext>(opts => opts.UseSqlServer(Configuration.DbConnectionString));
+            services.AddDbContext<MyBlogAppDbContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString(environmentName)));
 
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IPostRepository, PostRepository>();

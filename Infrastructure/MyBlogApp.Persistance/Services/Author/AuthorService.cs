@@ -51,6 +51,7 @@ namespace MyBlogApp.Persistance.Services.Author
             var authorsInDb = await _unitOfWork.AuthorRepository.GetAll(tracking: false).Select(a => new ListAuthorDto
             {
                 Name = a.Name,
+                ImageUrl = a.ImageURL
             }).ToListAsync();
 
             _cacheService.Add("Authors", authorsInDb);
