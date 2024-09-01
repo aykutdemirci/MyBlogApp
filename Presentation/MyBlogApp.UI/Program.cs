@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddCache(builder.Environment.EnvironmentName, CachingType.InMemory);
-builder.Services.AddStorageService<LocalStorageService>();
+builder.Services.AddStorageService<AzureStorageService>();
 builder.Services.AddAplicationServices();
 builder.Services.AddControllersWithViews().AddFluentValidation(fv =>
 {

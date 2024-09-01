@@ -72,7 +72,7 @@ namespace MyBlogApp.UI.Controllers
                     }
                 };
 
-                var authorImagesPath = FileUploadConfig.GetAuthorImagesPath(_webHostEnvironment.EnvironmentName);
+                var authorImagesPath = FileUploadConfig.GetAuthorImagesPath(_webHostEnvironment.EnvironmentName, _storageService.GetType());
 
                 Task.Run(async () => await _storageService.UploadAsync(authorImagesPath, files));
 
