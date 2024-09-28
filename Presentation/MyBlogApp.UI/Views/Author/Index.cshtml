@@ -9,7 +9,9 @@
             @item.Name
             @if (!string.IsNullOrEmpty(item.ImageURL))
             {
-                <img src="../../@item.ImageURL" />
+                @*<img src="../../@item.ImageURL" />*@
+
+                <img src="@item.ImageURL"/>
             }
         </li>
     }

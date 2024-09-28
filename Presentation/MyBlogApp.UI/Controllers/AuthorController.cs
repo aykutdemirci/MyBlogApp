@@ -49,7 +49,7 @@ namespace MyBlogApp.UI.Controllers
             {
                 var values = ModelState.Values;
 
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
             var dto = new CreateAuthorDto { Name = vm.Name };
@@ -74,9 +74,9 @@ namespace MyBlogApp.UI.Controllers
 
                 var authorImagesPath = FileUploadConfig.GetAuthorImagesPath(_webHostEnvironment.EnvironmentName, _storageService.GetType());
 
-                Task.Run(async () => await _storageService.UploadAsync(authorImagesPath, files));
+                var uploadedFiles = Task.Run(async () => await _storageService.UploadAsync(authorImagesPath, files)).GetAwaiter().GetResult();
 
-                dto.ImageURL = authorImagesPath.Replace("\\", "/") + "/" + fileNewName;
+                dto.ImageURL = uploadedFiles[0];
             }
 
             var result = Task.Run(async () => await _authorService.CreateAsync(dto)).GetAwaiter().GetResult();

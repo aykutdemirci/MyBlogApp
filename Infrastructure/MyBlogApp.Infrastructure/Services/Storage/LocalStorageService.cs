@@ -36,11 +36,13 @@ namespace MyBlogApp.Infrastructure.Services.Storage
             return File.Exists($"{searchPath}\\{fileName}");
         }
 
-        public async Task UploadAsync(string path, List<FileUploadDto> files)
+        public async Task<List<string>> UploadAsync(string path, List<FileUploadDto> files)
         {
             var uploadPath = Path.Combine(WebRootPath, path);
 
             if (!Directory.Exists(uploadPath)) Directory.CreateDirectory(uploadPath);
+
+            List<string> uploadedFiles = new();
 
             foreach (var file in files)
             {
@@ -50,7 +52,13 @@ namespace MyBlogApp.Infrastructure.Services.Storage
                 using var destinationFile = new FileStream(filePath, FileMode.Create, FileAccess.Write);
 
                 await sourceFile.CopyToAsync(destinationFile);
+
+                string relativePath = path.Replace("\\", "/") + "/" + file.FileName;
+
+                uploadedFiles.Add(relativePath);
             }
+
+            return uploadedFiles;
         }
     }
 }

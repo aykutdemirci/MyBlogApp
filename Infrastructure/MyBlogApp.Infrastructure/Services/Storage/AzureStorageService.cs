@@ -32,28 +32,27 @@ namespace MyBlogApp.Infrastructure.Services.Storage
             throw new NotImplementedException();
         }
 
-        public async Task UploadAsync(string containerName, List<FileUploadDto> files)
+        public async Task<List<string>> UploadAsync(string containerName, List<FileUploadDto> files)
         {
-            try
+            var blobContainerClient = _blobServiceClient.GetBlobContainerClient(containerName);
+
+            await blobContainerClient.CreateIfNotExistsAsync();
+            await blobContainerClient.SetAccessPolicyAsync(PublicAccessType.BlobContainer);
+
+            List<string> uploadedFiles = new();
+
+            foreach (var file in files)
             {
-                var blobContainerClient = _blobServiceClient.GetBlobContainerClient(containerName);
+                var blobClient = blobContainerClient.GetBlobClient(file.FileName);
 
-                await blobContainerClient.CreateIfNotExistsAsync();
-                await blobContainerClient.SetAccessPolicyAsync(PublicAccessType.BlobContainer);
+                using var stream = new MemoryStream(file.Content);
 
-                foreach (var file in files)
-                {
-                    var blobClient = blobContainerClient.GetBlobClient(file.FileName);
+                await blobClient.UploadAsync(stream);
 
-                    using var stream = new MemoryStream(file.Content);
-
-                    await blobClient.UploadAsync(stream);
-                }
+                uploadedFiles.Add(blobClient.Uri.ToString());
             }
-            catch (Exception ex)
-            {
-                throw;
-            }
+
+            return uploadedFiles;
         }
     }
 }

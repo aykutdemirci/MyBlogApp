@@ -1,29 +1,29 @@
-using MyBlogApp.Persistance;
+using MyBlogApp.Application;
 using MyBlogApp.Infrastructure;
+using MyBlogApp.Infrastructure.Enums;
+using MyBlogApp.Infrastructure.Services.Storage;
+using MyBlogApp.Persistance;
+using MyBlogApp.UI.Extensions;
 using Serilog;
 using Serilog.Sinks.MSSqlServer;
-using MyBlogApp.UI.Extensions;
-using MyBlogApp.Infrastructure.Services.Storage;
-using MyBlogApp.Infrastructure.Enums;
-using FluentValidation.AspNetCore;
-using MyBlogApp.Application.Validators;
-using MyBlogApp.Application;
-using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllersWithViews();
+
 // Add services to the container.
 builder.Services.AddCache(builder.Environment.EnvironmentName, CachingType.InMemory);
+//builder.Services.AddStorageService<LocalStorageService>();
 builder.Services.AddStorageService<AzureStorageService>();
 builder.Services.AddAplicationServices();
-builder.Services.AddControllersWithViews().AddFluentValidation(fv =>
-{
-    fv.RegisterValidatorsFromAssemblyContaining<IValidatable>();
 
-    //fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
-});
-
+//builder.Services.AddControllersWithViews().AddFluentValidation(fv =>
+//{
+//    fv.RegisterValidatorsFromAssemblyContaining<IValidatable>();
+//    //fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
+//});
 //builder.Services.AddValidatorsFromAssemblyContaining<IValidatable>();
+
 builder.Services.AddPersistanceServices(builder.Environment.EnvironmentName);
 
 var dbConnectionString = Configuration.GetConnectionString(builder.Environment.EnvironmentName);
