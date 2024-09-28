@@ -10,7 +10,7 @@ namespace MyBlogApp.Persistance
             {
                 var configurationManager = new ConfigurationManager();
 
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "../../Presentation/MyBlogApp.UI");
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "../../Presentation/MyBlogApp.API");
 
                 configurationManager.SetBasePath(path);
 
@@ -24,7 +24,7 @@ namespace MyBlogApp.Persistance
         {
             var configurationManager = new ConfigurationManager();
 
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "../../Presentation/MyBlogApp.UI");
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "../../Presentation/MyBlogApp.API");
 
             configurationManager.SetBasePath(path);
 

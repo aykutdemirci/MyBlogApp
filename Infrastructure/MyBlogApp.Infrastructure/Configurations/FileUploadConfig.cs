@@ -9,7 +9,7 @@ namespace MyBlogApp.Infrastructure.Configurations
         {
             var cfgManager = new ConfigurationManager();
 
-            cfgManager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../../Presentation/MyBlogApp.UI"));
+            cfgManager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../../Presentation/MyBlogApp.API"));
             cfgManager.AddJsonFile($"appsettings.{environmentName}.json");
 
             var authorsImagePath = cfgManager["Storages:Local:FilePaths:AuthorImagesPath"];
@@ -26,7 +26,7 @@ namespace MyBlogApp.Infrastructure.Configurations
         {
             var cfgManager = new ConfigurationManager();
 
-            cfgManager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../../Presentation/MyBlogApp.UI"));
+            cfgManager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../../Presentation/MyBlogApp.API"));
             cfgManager.AddJsonFile($"appsettings.{environmentName}.json");
 
             return cfgManager["Storages:Azure:ConnectionString"];

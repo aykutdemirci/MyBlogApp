@@ -9,7 +9,7 @@ namespace MyBlogApp.Infrastructure.Configurations
             get
             {
                 var cfgManager = new ConfigurationManager();
-                cfgManager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../../Presentation/MyBlogApp.UI"));
+                cfgManager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../../Presentation/MyBlogApp.API"));
                 cfgManager.AddJsonFile("appsettings.json");
                 return cfgManager.GetConnectionString("Redis");
             }
@@ -18,7 +18,7 @@ namespace MyBlogApp.Infrastructure.Configurations
         public static string GetConnectionString(string environmentName)
         {
             var cfgManager = new ConfigurationManager();
-            cfgManager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../../Presentation/MyBlogApp.UI"));
+            cfgManager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../../Presentation/MyBlogApp.API"));
             cfgManager.AddJsonFile($"appsettings.{environmentName}.json");
             return cfgManager.GetConnectionString("Redis");
         }

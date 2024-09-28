@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Serilog.AspNetCore" Version="6.0.0" />
+    <PackageReference Include="Serilog.Sinks.MSSqlServer" Version="6.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\MyBlogApp.Application\MyBlogApp.Application.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\MyBlogApp.Infrastructure\MyBlogApp.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\MyBlogApp.Persistance\MyBlogApp.Persistance.csproj" />
+  </ItemGroup>
+
+</Project>
