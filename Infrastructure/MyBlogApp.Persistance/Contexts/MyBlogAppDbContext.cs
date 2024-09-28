@@ -11,7 +11,7 @@ namespace MyBlogApp.Persistance.Contexts
 
         }
 
-        public override int SaveChanges()
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             var entries = ChangeTracker.Entries<BaseEntitiy>();
 
@@ -27,7 +27,7 @@ namespace MyBlogApp.Persistance.Contexts
                 }
             }
 
-            return base.SaveChanges();
+            return await base.SaveChangesAsync(cancellationToken);
         }
 
         public DbSet<Post> Posts { get; set; }
@@ -35,5 +35,7 @@ namespace MyBlogApp.Persistance.Contexts
         public DbSet<Author> Authors { get; set; }
 
         public DbSet<Blog> Blogs { get; set; }
+
+        public DbSet<User> Users { get; set; }
     }
 }

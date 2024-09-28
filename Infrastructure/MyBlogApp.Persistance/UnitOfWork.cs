@@ -2,6 +2,7 @@
 using MyBlogApp.Application.Repositories.Author;
 using MyBlogApp.Application.Repositories.Blog;
 using MyBlogApp.Application.Repositories.Post;
+using MyBlogApp.Application.Repositories.User;
 using MyBlogApp.Persistance.Contexts;
 
 namespace MyBlogApp.Persistance
@@ -14,16 +15,20 @@ namespace MyBlogApp.Persistance
 
         public IAuthorRepository AuthorRepository { get; }
 
+        public IUserRepository UserRepository { get; }
+
         private readonly MyBlogAppDbContext _dbContext;
 
         public UnitOfWork(IPostRepository postRepository,
                           IBlogRepository blogRepository,
                           IAuthorRepository authorRepository,
+                          IUserRepository userRepository,
                           MyBlogAppDbContext dbContext)
         {
             PostRepository = postRepository;
             BlogRepository = blogRepository;
             AuthorRepository = authorRepository;
+            UserRepository = userRepository;
             _dbContext = dbContext;
         }
 

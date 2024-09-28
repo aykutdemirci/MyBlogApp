@@ -3,7 +3,7 @@ using MyBlogApp.Application.ViewModels;
 
 namespace MyBlogApp.Application.Validators
 {
-    public class AuthorCreateValidator : AbstractValidator<CreateAuthorViewModel>, IValidatable
+    public class AuthorCreateValidator : AbstractValidator<CreateAuthorViewModel>
     {
         public AuthorCreateValidator()
         {

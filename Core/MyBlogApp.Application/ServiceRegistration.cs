@@ -12,6 +12,7 @@ namespace MyBlogApp.Application
         {
             services.AddFluentValidationAutoValidation();
             services.AddScoped<IValidator<CreateAuthorViewModel>, AuthorCreateValidator>();
+            services.AddScoped<IValidator<RegisterViewModel>, UserCreateValidator>();
         }
     }
 }
