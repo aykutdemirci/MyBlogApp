@@ -364,3 +364,6 @@ FodyWeavers.xsd
 
 # localpilot
 .localpilot/
+
+# launch settings
+launchSettings.json
