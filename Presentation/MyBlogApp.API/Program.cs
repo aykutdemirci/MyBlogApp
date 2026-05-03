@@ -11,13 +11,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+var env = builder.Environment.EnvironmentName;
+builder.Configuration.AddJsonFile($"appsettings.{env}.json", optional: false).AddEnvironmentVariables();
+
 builder.Services.AddControllers();
-builder.Services.AddCache(builder.Environment.EnvironmentName, CachingType.InMemory);
+builder.Services.AddCache(env, CachingType.InMemory);
 builder.Services.AddStorageService<AzureStorageService>();
 builder.Services.AddAplicationServices();
-builder.Services.AddPersistanceServices(builder.Environment.EnvironmentName);
+builder.Services.AddPersistanceServices(env);
 
-var dbConnectionString = Configuration.GetConnectionString(builder.Environment.EnvironmentName);
+var dbConnectionString = Configuration.GetConnectionString(env);
 
 var loggerConf = new LoggerConfiguration()
     .WriteTo.File("logs/log.txt")
